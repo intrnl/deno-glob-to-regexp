@@ -4,6 +4,7 @@ let rangeEscapeChars = ["-", "\\", "]"];
 export interface GlobToRegExpOptions {
 	extended?: boolean,
 	globstar?: boolean,
+	os?: "linux" | "windows",
 }
 
 /**
@@ -67,14 +68,20 @@ export function globToRegExp (glob: string, opts: GlobToRegExpOptions = {}) {
 		return /(?!)/;
 	}
 
-	let { extended = true, globstar: globstarOption = true } = opts;
+	let {
+		extended = true,
+		globstar: globstarOption = true,
+		os = "linux",
+	} = opts;
 
-	let sep = "/+";
-	let sepMaybe = "/*";
-	let seps = ["/"];
-	let globstar = "(?:[^/]*(?:/|$)+)*";
-	let wildcard = "[^/]*";
-	let escapePrefix = "\\";
+  let sep = os == "windows" ? "(?:\\\\|/)+" : "/+";
+  let sepMaybe = os == "windows" ? "(?:\\\\|/)*" : "/*";
+  let seps = os == "windows" ? ["\\", "/"] : ["/"];
+  let globstar = os == "windows"
+    ? "(?:[^\\\\/]*(?:\\\\|/|$)+)*"
+    : "(?:[^/]*(?:/|$)+)*";
+  let wildcard = os == "windows" ? "[^\\\\/]*" : "[^/]*";
+  let escapePrefix = os == "windows" ? "`" : "\\";
 
 	// Remove trailing separators.
 	let newLength = glob.length;
