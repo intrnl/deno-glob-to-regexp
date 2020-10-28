@@ -1,0 +1,33 @@
+{
+	"name": "@intrnl/deno-glob-to-regexp",
+	"description": "Glob to regular expressions, taken from Deno's standard library",
+	"version": "0.1.0",
+	"license": "MIT",
+	"author": "intrnl",
+	"repository": {
+		"url": "https://github.com/intrnl/deno-glob-to-regexp"
+	},
+	"source": "lib/index.ts",
+	"main": "dist/deno-glob-to-regexp.js",
+	"module": "dist/deno-glob-to-regexp.mjs",
+	"types": "types/index.d.ts",
+	"sideEffects": "false",
+	"files": [
+		"dist/",
+		"types/",
+		"README.md"
+	],
+	"scripts": {
+		"build": "pnpm run build:lib & pnpm run build:types",
+		"build:lib": "bundl",
+		"build:types": "tsc",
+		"prepublishOnly": "pnpm run build"
+	},
+	"devDependencies": {
+		"@intrnl/bundl": "^0.1.13",
+		"typescript": "^4.0.5"
+	},
+	"bundl": {
+		"target": "es2017"
+	}
+}
