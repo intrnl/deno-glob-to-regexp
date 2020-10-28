@@ -1,10 +1,6 @@
 # `deno-glob-to-regexp`
 
-Converts glob to regular expressions, taken straight from Deno standard library,
-with one exception:
-
-- Assumes that you are in a POSIX environment, if you are in Windows, you should
-  normalize them to POSIX path separator first.
+Converts glob to regular expressions, taken straight from Deno standard library.
 
 ## Installation
 
